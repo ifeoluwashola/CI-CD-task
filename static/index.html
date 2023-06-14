@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #weather {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Weather App</h1>
+  <div id="weather">Loading...</div>
+
+  <script>
+    window.addEventListener("load", function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(fetchWeatherData);
+      } else {
+        document.getElementById("weather").innerHTML = "Geolocation is not supported by this browser.";
+      }
+    });
+
+    function fetchWeatherData(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            var weatherInfo = "Temperature: " + response.main.temp + "°C, " +
+                              "Humidity: " + response.main.humidity + "%, " +
+                              "Description: " + response.weather[0].description;
+            document.getElementById("weather").innerHTML = weatherInfo;
+          } else {
+            document.getElementById("weather").innerHTML = "Failed to fetch weather data.";
+          }
+        }
+      };
+
+      xhr.open("GET", "/weather?lat=" + latitude + "&lon=" + longitude, true);
+      xhr.send();
+    }
+  </script>
+</body>
+</html>
+
