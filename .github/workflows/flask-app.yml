@@ -1,4 +1,4 @@
-name: Python App CI/CD
+name: Flask App CI/CD
 
 on:
   push:
@@ -29,11 +29,9 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
           docker build -t ifeoluwashola/flask-app:${{ github.sha }} .
           docker push ifeoluwashola/flask-app:${{ github.sha }}
 
       - name: Run tests
         run: pytest
-
-      # Add more steps as needed for your specific workflow
