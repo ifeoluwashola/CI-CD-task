@@ -1,60 +1,235 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Weather App</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    #weather {
-      font-size: 24px;
-      margin-top: 20px;
-      color: blue;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #fff 0%, #e7f1fd 100%);
+}
+
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"] {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 5px #4CAF50;
+}
+
+button {
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#weather-result {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+.weather-icon {
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+}
+
+.description {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Additional styling for forecast section */
+.forecast-section {
+    margin-top: 30px;
+}
+
+.forecast-day {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Add this line */
+}
+
+.forecast-day::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background-color: #4CAF50; /* Change this color to your desired accent color */
+    border-radius: 4px 4px 0 0;
+}
+
+.forecast-date {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.forecast-condition {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.forecast-temperature {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+    </style>
 </head>
+
 <body>
-  <h1>Weather App</h1>
-  <div id="weather">Loading...</div>
+    <div class="container">
+        <h1>Weather App</h1>
 
-  <script>
-    window.addEventListener("load", function() {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(fetchWeatherData);
-      } else {
-        document.getElementById("weather").innerHTML = "Geolocation is not supported by this browser.";
-      }
-    });
+        <form id="weather-form">
+            <label for="city-input">Enter City:</label>
+            <input type="text" id="city-input" name="city" required>
+            <button type="submit">Get Weather</button>
+        </form>
 
-    function fetchWeatherData(position) {
-      var latitude = position.coords.latitude;
-      var longitude = position.coords.longitude;
+        <div id="weather-result"></div>
+    </div>
 
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status === 200) {
-            var response = JSON.parse(xhr.responseText);
-            var weatherInfo = "Temperature: " + response.main.temp + "°C, " +
-                              "Humidity: " + response.main.humidity + "%, " +
-                              "Description: " + response.weather[0].description;
-            document.getElementById("weather").innerHTML = weatherInfo;
-          } else {
-            document.getElementById("weather").innerHTML = "Failed to fetch weather data.";
-          }
+    <script>
+// JavaScript code
+
+const form = document.getElementById('weather-form');
+const resultDiv = document.getElementById('weather-result');
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const cityInput = document.getElementById('city-input');
+    const city = cityInput.value;
+
+    // Clear previous result
+    resultDiv.textContent = '';
+
+    try {
+        const response = await fetch(`/weather?city=${city}`);
+        const data = await response.json();
+
+        if (response.ok) {
+            const currentWeather = data.weather;
+            const forecast = data.forecast;
+            const advice = data.advice; // Add this line to retrieve the weather advice
+
+            const currentWeatherHTML = `
+                <div class="current-weather">
+                    <h2>Current Weather</h2>
+                    <p>Temperature: ${currentWeather.temperature}°C</p>
+                    <p>Condition: ${currentWeather.condition}</p>
+                    <p>Humidity: ${currentWeather.humidity}%</p>
+                    <p>Wind Speed: ${currentWeather.wind_speed} km/h</p>
+                    <p>Sunrise: ${currentWeather.sunrise}</p>
+                    <p>Sunset: ${currentWeather.sunset}</p>
+                    <p>Country: ${currentWeather.country}</p>
+                    <p>Visibility: ${currentWeather.visibility} meters</p>
+                    <img class="weather-icon" src="${currentWeather.weather_icon}" alt="Weather Icon">
+                </div>
+            `;
+
+            let forecastHTML = '';
+            if (forecast) {
+                forecastHTML += '<div class="forecast-section">';
+                forecastHTML += '<h2>Weather Forecast</h2>';
+                forecastHTML += '<h4>Weather Forecast for the next 3 days</h4>'
+                forecastHTML += forecast.slice(0, 3).map((day) => {
+                    const date = new Date(day.date);
+                    const dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+                    return `
+                        <div class="forecast-day">
+                            <h3>${dayOfWeek}</h3>
+                            <p>Date: ${day.date}</p>
+                            <p>Temperature: ${day.temperature}°C</p>
+                            <p>Condition: ${day.condition}</p>
+                        </div>
+                    `;
+                }).join('');
+                forecastHTML += '</div>';
+            }
+            const adviceHTML = `<p class="advice">Advice: ${advice}</p>`; // Add this line to display the weather advice
+
+            resultDiv.innerHTML = currentWeatherHTML + adviceHTML + forecastHTML;
+        } else {
+            const error = data.error;
+            resultDiv.innerHTML = `<p class="error">Error: ${error}</p>`;
         }
-      };
-
-      xhr.open("GET", "/weather?lat=" + latitude + "&lon=" + longitude, true);
-      xhr.send();
+    } catch (error) {
+        console.error('An error occurred:', error);
+        resultDiv.innerHTML = '<p class="error">An error occurred. Please try again later.</p>';
     }
-  </script>
+});
+
+
+    </script>
 </body>
+
 </html>
 
