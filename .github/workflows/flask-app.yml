@@ -51,10 +51,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
-
+      
       - name: Deploy with Ansible
-        uses: ansible/ansible-publish-action@v1.0.0
+        uses: Hugozys/ansible-deploy@v1.1.0
         with:
-          entryPoint: ./deploy.yaml
-          args: ./inventory.ini image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
-          api_server: https://galaxy.ansible.com/
+          directory: "./"
+          playbook: "deploy.yaml"
+
