@@ -56,5 +56,5 @@ jobs:
         uses: ansible/ansible-publish-action@v1.0.0
         with:
           entryPoint: ./deploy.yaml
-          args: ./inventory.ini
-          src_path: image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
+          args: ./inventory.ini image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
+          api_server: https://galaxy.ansible.com/
