@@ -55,6 +55,6 @@ jobs:
       - name: Deploy with Ansible
         uses: ansible/ansible-publish-action@v1.0.0
         with:
-          playbook: ./deploy.yaml
-          inventory: ./inventory.ini
-          extra-vars: image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
+          entryPoint: ./deploy.yaml
+          args: ./inventory.ini
+          src_path: image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
