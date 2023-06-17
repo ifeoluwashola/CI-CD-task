@@ -51,3 +51,10 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
+
+      - name: Deploy with Ansible
+        uses: appleboy/ansible-action@v0.1.0
+        with:
+          playbook: ./deploy.yaml
+          inventory: ./inventory.ini
+          extra-vars: image_name=${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
