@@ -1,0 +1,63 @@
+- name: Install Docker and deploy Flask app
+  hosts: ec2_instances
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Install Docker dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker APT repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        state: present
+
+    - name: Update APT package cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+
+    - name: Install Docker Compose
+      apt:
+        name: docker-compose
+        state: present
+
+    - name: Get commit hash
+      shell: git rev-parse --short HEAD
+      register: commit_hash
+
+    - name: Set image tag
+      set_fact:
+        image_tag: "{{ commit_hash.stdout }}"
+
+    - name: Pull Docker image
+      docker_image:
+        name: ifeoluwashola/flask-app:{{ image_tag }}
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: flask-app
+        image: ifeoluwashola/flask-app:{{ image_tag }}
+        restart_policy: always
+        ports:
+          - "5001:5000"
+        state: started
+
