@@ -55,6 +55,6 @@ jobs:
       - name: Deploy with Ansible
         uses: Hugozys/ansible-deploy@v1.1.0
         with:
-          directory: "./"
+          directory: "./inventory.ini"
           playbook: "deploy.yml"
 
