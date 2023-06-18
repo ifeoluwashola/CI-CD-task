@@ -11,7 +11,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Set up Ansible  
-        uses: ansible/ansible-container@v2
+        uses: ansible/ansible-container@v3
         with:
           ansible-version: "2.10"
           inventory: inventory.ini
