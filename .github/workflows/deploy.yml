@@ -1,0 +1,27 @@
+name: Flask App CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Ansible
+        uses: ansible/ansible@v2
+        with:
+          ansible-version: '4'
+        working-directory: .  
+
+      - name: Deploy to production server
+        run: ansible-playbook -i inventory.ini deploy.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
+        working-directory: .  
