@@ -1,4 +1,4 @@
-name: Flask App CI/CD
+name: Flask App CI
 
 on:
   push:
@@ -51,10 +51,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ steps.commit_hash.outputs.commit_hash }}
-      
-      - name: Deploy with Ansible
-        uses: Hugozys/ansible-deploy@v1.1.0
-        with:
-          directory: "./inventory.ini"
-          playbook: "deploy.yml"
-
