@@ -3,7 +3,6 @@
   gather_facts: true
   become: true
 
-  tasks:
     - name: Install Docker dependencies
       apt:
         name:
@@ -39,23 +38,15 @@
         name: docker-compose
         state: present
 
-    - name: Get commit hash
-      shell: git rev-parse --short HEAD
-      register: commit_hash
-
-    - name: Set image tag
-      set_fact:
-        image_tag: "{{ commit_hash.stdout }}"
-
     - name: Pull Docker image
       docker_image:
-        name: ifeoluwashola/flask-app:{{ image_tag }}
+        name: ifeoluwashola/flask-app:latest
         source: pull
 
     - name: Run Docker container
       docker_container:
         name: flask-app
-        image: ifeoluwashola/flask-app:{{ image_tag }}
+        image: ifeoluwashola/flask-app:latest
         restart_policy: always
         ports:
           - "5001:5000"
