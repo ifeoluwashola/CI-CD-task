@@ -3,18 +3,18 @@ on:
   push:
     branches:
       - master
+
+  workflow_dispatch:
+  
 jobs:
-  deploy:
+  validate:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout Repository 
-        uses: actions/checkout@v2
-        
-      - name: Set up Ansible  
-        uses: ansible/ansible-container@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      
+      - name: Run ansible-lint
+        uses: ansible-community/ansible-lint-action@v6.0.2
         with:
-          ansible-version: "2.10"
-          inventory: inventory.ini
-          
-      - name: Deploy Docker image
-        run: ansible-playbook deploy.yml
+          args: "ansible" 
