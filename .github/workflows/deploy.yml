@@ -43,6 +43,14 @@ jobs:
           INVENTORY: ${{ secrets.ANSIBLE_INVENTORY }}
         run: 'echo "$INVENTORY" > inventory'
         
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa 
+          known_hosts: ${{ secrets.KNOWN_HOST }}
+          if_key_exists: fail 
+          
       - name: run playbook
         run: |
           ansible-playbook -i inventory Ansible/deploy.yml
