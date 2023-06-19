@@ -45,5 +45,5 @@ jobs:
         
       - name: run playbook
         run: |
-          ansible-playbook -i inventory ansible/deploy.yml
+          ansible-playbook -i inventory Ansible/deploy.yml
 
