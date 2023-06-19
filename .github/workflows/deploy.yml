@@ -35,12 +35,8 @@ jobs:
 
       - name: Install dependencies Including Ansible
         run: |
-          python3 -m pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip3 install -r Ansible/requirements.txt
-        
-      - name: write inventory to file
-        env:
-          INVENTORY: ${{ secrets.ANSIBLE_INVENTORY }}
-          run: 'echo "$INVENTORY" > inventory'
+
           
 
