@@ -3,6 +3,7 @@
   gather_facts: true
   become: true
 
+  tasks:
     - name: Install Docker dependencies
       apt:
         name:
@@ -47,7 +48,6 @@
       docker_container:
         name: flask-app
         image: ifeoluwashola/flask-app:latest
-        restart_policy: always
         ports:
           - "5001:5000"
         state: started
