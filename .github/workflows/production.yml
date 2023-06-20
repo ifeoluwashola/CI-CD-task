@@ -48,7 +48,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha}}
 
   validate:
     if: github.ref == 'refs/heads/master'
@@ -99,4 +99,4 @@ jobs:
           
       - name: run playbook
         run: |
-          ansible-playbook -i inventory Ansible/deploy.yml
+          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}"
