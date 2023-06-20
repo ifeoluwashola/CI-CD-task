@@ -87,9 +87,6 @@ jobs:
           INVENTORY: ${{ secrets.ANSIBLE_PROD_INVENTORY }}
         run: 'echo "$INVENTORY" > inventory'
         
-      - name: Get the SSH Hosts Key For the Servers
-
-        
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         env: 
