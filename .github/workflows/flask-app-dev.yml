@@ -3,14 +3,12 @@ name: Flask App Development CI/CD
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - development
   workflow_dispatch:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
 
     steps:
@@ -50,6 +48,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
 
   validate:
+    if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
     needs: [build]
     steps:
@@ -62,6 +61,7 @@ jobs:
           args: "ansible" 
 
   run-playbook:
+    if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
     needs: [validate]
     
