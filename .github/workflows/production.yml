@@ -88,8 +88,8 @@ jobs:
         run: 'echo "$INVENTORY" > inventory'
         
       - name: Get the SSH Hosts Key For the Servers
-        run: |
-          echo "::set-env name=KNOWN_HOSTS::${{ secrets.KNOWN_HOST_PROD1 }},${{ secrets.KNOWN_HOST_PROD2 }}"
+        env: 
+          KNOWN_HOSTS: ${{ secrets.KNOWN_HOST_PROD1 }},${{ secrets.KNOWN_HOST_PROD2 }}"
         
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
