@@ -45,7 +45,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }}
 
   validate:
     if: github.ref == 'refs/heads/development'
