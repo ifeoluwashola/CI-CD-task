@@ -97,7 +97,7 @@ jobs:
         with:
           key: ${{ secrets.SSH_KEY }}
           name: id_rsa 
-          known_hosts: known_hosts
+          known_hosts: ./known_hosts
           if_key_exists: fail 
           
       - name: run playbook
