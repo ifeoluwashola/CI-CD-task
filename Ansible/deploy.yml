@@ -41,14 +41,14 @@
 
     - name: Pull Docker image
       docker_image:
-        name: ifeoluwashola/flask-app:{{ github.sha }}
+        name: ifeoluwashola/flask-app:{{ github_sha }}
         repository: ifeoluwashola/flask-app
         source: pull
 
     - name: Run Docker container
       docker_container:
         name: flask-app
-        image: ifeoluwashola/flask-app:{{ github.sha }}
+        image: ifeoluwashola/flask-app:{{ github_sha }}
         ports:
           - "5001:5000"
         state: started

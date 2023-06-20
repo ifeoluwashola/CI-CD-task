@@ -94,4 +94,4 @@ jobs:
           
       - name: run playbook
         run: |
-          ansible-playbook -i inventory Ansible/deploy.yml
+          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}"
