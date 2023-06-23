@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request
 import requests
 from datetime import datetime, timedelta
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
+metrics = PrometheusMetrics(app)
 
 # OpenWeatherMap API endpoints
 WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
