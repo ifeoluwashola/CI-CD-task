@@ -94,10 +94,10 @@ This project is licensed under the terms of the MIT license. It means you are fr
 ## Project UI
 
 ### Before User input city
-![Before User input city](Screeshots/weather1.png)
+![Before User input city](Screenshots/weather1.png)
 
 ### When User Input City
-![When User Input City](Screeshots/weather2.png)
+![When User Input City](Screenshots/weather2.png)
 
 ### Forecast for the Next 3 Days of the City
-![Forecast for the Next 3 Days of the City](Screeshots/weather3.png)
+![Forecast for the Next 3 Days of the City](Screenshots/weather3.png)
