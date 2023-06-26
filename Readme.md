@@ -1,10 +1,10 @@
 # Weather Forecast Flask App with Docker, Ansible, and GitHub Actions
 
-This repository contains a simple, scalable Flask application that provides a weather forecasting service by leveraging the OpenWeather API. This application follows best practices for real-world industrial applications, including the usage of Docker for containerization, Ansible for configuration management, Prometheus and Grafana for monitoring and visualization and GitHub Actions for Continuous Integration and Continuous Deployment (CI/CD).
+This repository contains a simple, scalable Flask application that provides a weather forecasting service by leveraging the OpenWeatherMAP API. This application follows best practices for real-world industrial applications, including the usage of Docker for containerization, Ansible for configuration management, Prometheus and Grafana for monitoring and visualization and GitHub Actions for Continuous Integration and Continuous Deployment (CI/CD).
 
 ## About the Application
 
-The Flask application in this project is a web-based weather forecasting application. It provides the current weather and a 3-day forecast for any city based on user input. The application fetches this information from the OpenWeather API and presents it to the user in an easily digestible format. Additionally, it offers advice based on the current weather conditions.
+The Flask application in this project is a web-based weather forecasting application. It provides the current weather and a 3-day forecast for any city based on user input. The application fetches this information from the OpenWeatherMAP API and presents it to the user in an easily digestible format. Additionally, it offers advice based on the current weather conditions.
 
 The application has been designed with scalability in mind, making it suitable for expansion into more complex applications. It also integrates Prometheus for monitoring the application metrics, providing valuable insights into the system performance.
 
@@ -30,11 +30,12 @@ This directory contains the GitHub Actions workflow files. There are two workflo
 
 ## Requirements 
 
-Python >= 3.8 <br>
-pip <br>
-flask <br>
-requests <br>
-pytest 
+`Python >= 3.8` <br>
+`pip` <br>
+`flask` <br>
+`requests` <br>
+`pytest` <br>
+`prometheus_flask_exporter`
 
 ## Docker
 
