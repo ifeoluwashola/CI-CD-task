@@ -90,3 +90,14 @@ I welcome contributions to this project. Please feel free to open an issue or su
 ## License
 
 This project is licensed under the terms of the MIT license. It means you are free to use, modify, and distribute the project under the conditions specified in the license.
+
+## Project UI
+
+### Before User input city
+![Before User input city](weather1.png)
+
+### When User Input City
+![When User Input City](weather2.png)
+
+### Forecast for the Next 3 Days of the City
+![Forecast for the Next 3 Days of the City](weather3.png)
