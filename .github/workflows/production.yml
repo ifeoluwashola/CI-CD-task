@@ -1,4 +1,4 @@
-name: Flask App Deployment CI/CD
+name: Flask App Production CI/CD
 
 on:
   push:
