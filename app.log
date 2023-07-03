@@ -26,3 +26,16 @@
 [2023-07-03 19:29:04,688] INFO in app: Successful response for '/weather' from 127.0.0.1 at 2023-07-03 19:29:04.688631. City: London
 [2023-07-03 19:29:04,691] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 19:29:04.691582, User-Agent: werkzeug/2.3.6
 [2023-07-03 19:29:04,691] ERROR in app: City parameter is required.
+[2023-07-03 19:54:17,184] DEBUG in app: Successful request for '/'. Method: GET, From: 127.0.0.1, At: 2023-07-03 19:54:17.184388, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:54:17,187] DEBUG in app: Successful request for '/weather'. Method: GET, City: London, From: 127.0.0.1, At: 2023-07-03 19:54:17.187978, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:54:17,329] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 19:54:17.329479, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:54:17,329] ERROR in app: City parameter is required.
+[2023-07-03 19:55:30,029] DEBUG in app: Successful request for '/'. Method: GET, From: 127.0.0.1, At: 2023-07-03 19:55:30.029458, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:55:30,033] DEBUG in app: Successful request for '/weather'. Method: GET, City: London, From: 127.0.0.1, At: 2023-07-03 19:55:30.033009, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:55:30,173] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 19:55:30.172998, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:55:30,173] ERROR in app: City parameter is required.
+[2023-07-03 20:09:26,073] DEBUG in app: Successful request for '/'. Method: GET, From: 127.0.0.1, At: 2023-07-03 20:09:26.073777, User-Agent: werkzeug/2.3.6
+[2023-07-03 20:09:26,076] DEBUG in app: Successful request for '/weather'. Method: GET, City: London, From: 127.0.0.1, At: 2023-07-03 20:09:26.076231, User-Agent: werkzeug/2.3.6
+[2023-07-03 20:09:26,973] INFO in app: Successful response for '/weather' from 127.0.0.1 at 2023-07-03 20:09:26.973263. City: London
+[2023-07-03 20:09:26,976] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 20:09:26.976156, User-Agent: werkzeug/2.3.6
+[2023-07-03 20:09:26,976] ERROR in app: City parameter is required.
