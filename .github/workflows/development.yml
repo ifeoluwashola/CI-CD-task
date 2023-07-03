@@ -93,5 +93,7 @@ jobs:
           if_key_exists: fail 
           
       - name: run playbook
+        env:
+         WEATHER_ API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
-          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}"
+          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}" --extra-vars "weather_api_key=${{ env.WEATHER_API_KEY }}"

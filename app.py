@@ -22,16 +22,23 @@ handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=1)
 handler.setLevel(logging.DEBUG)
 handler.setFormatter(formatter)
 app.logger.addHandler(handler)
+app.logger.setLevel(logging.DEBUG)  # Set global log level to DEBUG
 
 @app.route('/')
 def index():
-    app.logger.info(f"Request received for '/' from {request.remote_addr} at {datetime.now()}")
+    request_method = request.method
+    user_agent = request.headers.get('User-Agent')
+    log_message = f"Successful request for '/'. Method: {request_method}, From: {request.remote_addr}, At: {datetime.now()}, User-Agent: {user_agent}"
+    app.logger.debug(log_message)
     return open('static/index.html').read()
 
 @app.route('/weather')
 def get_weather():
     city = request.args.get('city', '')
-    app.logger.info(f"Request received for '/weather' from {request.remote_addr} at {datetime.now()}. City: {city}")
+    request_method = request.method
+    user_agent = request.headers.get('User-Agent')
+    log_message = f"Successful request for '/weather'. Method: {request_method}, City: {city}, From: {request.remote_addr}, At: {datetime.now()}, User-Agent: {user_agent}"
+    app.logger.debug(log_message)
 
     if not city:
         error_message = 'City parameter is required.'
@@ -48,7 +55,7 @@ def get_weather():
     data = response.json()
 
     if response.status_code != 200:
-        error_message = 'Failed to retrieve weather data.'
+        error_message = f"Failed to retrieve weather data. Error: {data.get('message', 'Unknown error')}, Status code: {response.status_code}"
         app.logger.error(error_message)
         return jsonify({'error': error_message}), 500
 
@@ -92,7 +99,8 @@ def get_weather_forecast(city):
     data = response.json()
 
     if response.status_code != 200:
-        app.logger.error('Failed to retrieve weather forecast')
+        error_message = 'Failed to retrieve weather forecast'
+        app.logger.error(error_message)
         return None
 
     forecast = []

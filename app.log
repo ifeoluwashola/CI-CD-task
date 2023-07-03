@@ -1,1 +1,23 @@
-[2023-07-03 18:18:22,284] ERROR in app: Failed to retrieve weather data.
+[2023-07-03 19:08:09,017] DEBUG in app: Successful request for '/'. Method: GET, From: 127.0.0.1, At: 2023-07-03 19:08:09.017212, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:08:09,019] DEBUG in app: Successful request for '/weather'. Method: GET, City: London, From: 127.0.0.1, At: 2023-07-03 19:08:09.019658, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:08:09,425] ERROR in app: Failed to retrieve weather data. Error: Invalid API key. Please see https://openweathermap.org/faq#error401 for more info., Status code: 401
+[2023-07-03 19:08:09,454] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 19:08:09.454836, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:08:09,455] ERROR in app: City parameter is required.
+[2023-07-03 19:10:46,816] DEBUG in app: Successful request for '/'. Method: GET, From: 127.0.0.1, At: 2023-07-03 19:10:46.816340, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:10:46,818] DEBUG in app: Successful request for '/weather'. Method: GET, City: London, From: 127.0.0.1, At: 2023-07-03 19:10:46.818818, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:10:47,678] INFO in app: Successful response for '/weather' from 127.0.0.1 at 2023-07-03 19:10:47.678901. City: London
+[2023-07-03 19:10:47,681] DEBUG in app: Successful request for '/weather'. Method: GET, City: , From: 127.0.0.1, At: 2023-07-03 19:10:47.681825, User-Agent: werkzeug/2.3.6
+[2023-07-03 19:10:47,681] ERROR in app: City parameter is required.
+[2023-07-03 19:11:10,145] DEBUG in app: Successful request for '/'. Method: GET, From: 102.89.43.123, At: 2023-07-03 19:11:10.145552, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:15,335] DEBUG in app: Successful request for '/weather'. Method: GET, City: akure, From: 102.89.43.123, At: 2023-07-03 19:11:15.335881, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:16,434] INFO in app: Successful response for '/weather' from 102.89.43.123 at 2023-07-03 19:11:16.434147. City: akure
+[2023-07-03 19:11:25,786] DEBUG in app: Successful request for '/weather'. Method: GET, City: eko, From: 102.89.43.123, At: 2023-07-03 19:11:25.786019, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:26,961] INFO in app: Successful response for '/weather' from 102.89.43.123 at 2023-07-03 19:11:26.961268. City: eko
+[2023-07-03 19:11:32,175] DEBUG in app: Successful request for '/weather'. Method: GET, City: hfkrj, From: 102.89.43.123, At: 2023-07-03 19:11:32.175779, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:32,589] ERROR in app: Failed to retrieve weather data. Error: city not found, Status code: 404
+[2023-07-03 19:11:45,576] DEBUG in app: Successful request for '/weather'. Method: GET, City: ijigbo, From: 102.89.43.123, At: 2023-07-03 19:11:45.576488, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:45,979] ERROR in app: Failed to retrieve weather data. Error: city not found, Status code: 404
+[2023-07-03 19:11:51,865] DEBUG in app: Successful request for '/weather'. Method: GET, City: ado, From: 102.89.43.123, At: 2023-07-03 19:11:51.865020, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:53,337] INFO in app: Successful response for '/weather' from 102.89.43.123 at 2023-07-03 19:11:53.337520. City: ado
+[2023-07-03 19:11:57,535] DEBUG in app: Successful request for '/weather'. Method: GET, City: london, From: 102.89.43.123, At: 2023-07-03 19:11:57.535955, User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+[2023-07-03 19:11:58,377] INFO in app: Successful response for '/weather' from 102.89.43.123 at 2023-07-03 19:11:58.377171. City: london
