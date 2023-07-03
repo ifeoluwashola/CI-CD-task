@@ -99,4 +99,4 @@ jobs:
           
       - name: run playbook
         run: |
-          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}"
+          ansible-playbook -i inventory Ansible/deploy.yml --extra-vars "github_sha=${{ github.sha }}" --extra-vars "weather_api_key=${{ secrets.WEATHER_API_KEY }}"

@@ -2,26 +2,48 @@ from flask import Flask, jsonify, request
 import requests
 from datetime import datetime, timedelta
 from prometheus_flask_exporter import PrometheusMetrics
+import os
+import logging
+from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__)
 metrics = PrometheusMetrics(app)
 
 # OpenWeatherMap API endpoints
-WEATHER_API_URL = "http://api.openweathermap.org/data/2.5/weather"
-FORECAST_API_URL = "http://api.openweathermap.org/data/2.5/forecast"
+WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather"
+FORECAST_API_URL = "https://api.openweathermap.org/data/2.5/forecast"
 
-# Replace 'YOUR_API_KEY' with your actual OpenWeatherMap API key
-WEATHER_API_KEY = 'ab73d37404647b74cdbf8ecd5d5c92fb'
+# Retrieve OpenWeatherMap API key from environment variable
+WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY')
+
+# Configure logging
+formatter = logging.Formatter('[%(asctime)s] %(levelname)s in %(module)s: %(message)s')
+handler = RotatingFileHandler('app.log', maxBytes=10000, backupCount=1)
+handler.setLevel(logging.DEBUG)
+handler.setFormatter(formatter)
+app.logger.addHandler(handler)
+app.logger.setLevel(logging.DEBUG)  # Set global log level to DEBUG
 
 @app.route('/')
 def index():
+    request_method = request.method
+    user_agent = request.headers.get('User-Agent')
+    log_message = f"Successful request for '/'. Method: {request_method}, From: {request.remote_addr}, At: {datetime.now()}, User-Agent: {user_agent}"
+    app.logger.debug(log_message)
     return open('static/index.html').read()
 
 @app.route('/weather')
 def get_weather():
     city = request.args.get('city', '')
+    request_method = request.method
+    user_agent = request.headers.get('User-Agent')
+    log_message = f"Successful request for '/weather'. Method: {request_method}, City: {city}, From: {request.remote_addr}, At: {datetime.now()}, User-Agent: {user_agent}"
+    app.logger.debug(log_message)
+
     if not city:
-        return jsonify({'error': 'City parameter is required.'}), 400
+        error_message = 'City parameter is required.'
+        app.logger.error(error_message)
+        return jsonify({'error': error_message}), 400
 
     params = {
         'q': city,
@@ -33,7 +55,9 @@ def get_weather():
     data = response.json()
 
     if response.status_code != 200:
-        return jsonify({'error': 'Failed to retrieve weather data.'}), 500
+        error_message = f"Failed to retrieve weather data. Error: {data.get('message', 'Unknown error')}, Status code: {response.status_code}"
+        app.logger.error(error_message)
+        return jsonify({'error': error_message}), 500
 
     # Extract relevant weather data from the current weather API response
     current_weather = {
@@ -54,6 +78,10 @@ def get_weather():
     # Provide advice based on weather conditions
     advice = get_weather_advice(current_weather)
 
+    # Log successful response and request details
+    log_message = f"Successful response for '/weather' from {request.remote_addr} at {datetime.now()}. City: {city}"
+    app.logger.info(log_message)
+
     return jsonify({
         'weather': current_weather,
         'forecast': forecast,
@@ -71,6 +99,8 @@ def get_weather_forecast(city):
     data = response.json()
 
     if response.status_code != 200:
+        error_message = 'Failed to retrieve weather forecast'
+        app.logger.error(error_message)
         return None
 
     forecast = []
@@ -101,6 +131,7 @@ def get_weather_forecast(city):
         'condition': data['list'][3]['weather'][0]['description']
     }
     forecast.append(next_2_day_weather)
+
     return forecast
 
 def get_weather_advice(current_weather):
@@ -122,7 +153,6 @@ def get_weather_advice(current_weather):
         advice = "It's hot outside. Stay hydrated!"
     else:
         advice = "Enjoy the weather!"
-        
 
     return advice
 
