@@ -53,5 +53,5 @@
           - "5001:5000"
         state: started
         env:
-          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
+          WEATHER_API_KEY: "{{ weather_api_key }}"
 
