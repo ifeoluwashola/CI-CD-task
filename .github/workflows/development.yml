@@ -73,7 +73,7 @@ jobs:
         run: kubectl apply -f k8s/deployment.yml
 
       - name: Expose Flask app service
-        run: kubectl apply -f service.yml
+        run: kubectl apply -f k8s/service.yml
 
       - name: Deploy Ingress
         run: kubectl apply -f k8s/ingress.yml
