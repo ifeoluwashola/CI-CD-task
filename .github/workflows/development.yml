@@ -68,10 +68,7 @@ jobs:
 
       - name: Configure kubectl for Minikube
         run: minikube kubectl -- get pods
-
-      - name: Load Docker image into Minikube
-        run: eval $(minikube docker-env) && docker tag ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }} flask-app:minikube && docker save flask-app:minikube | (eval $(minikube docker-env) && docker load)
-
+ 
       - name: Deploy Flask app to Minikube
         run: kubectl apply -f k8s/deployment.yaml
 
