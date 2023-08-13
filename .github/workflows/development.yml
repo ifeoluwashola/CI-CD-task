@@ -70,13 +70,13 @@ jobs:
         run: minikube kubectl -- get pods
  
       - name: Deploy Flask app to Minikube
-        run: kubectl apply -f k8s/deployment.yaml
+        run: kubectl apply -f k8s/deployment.yml
 
       - name: Expose Flask app service
         run: kubectl expose deployment flask-app --type=NodePort --port=80
 
       - name: Deploy Ingress
-        run: kubectl apply -f k8s/ingress.yaml
+        run: kubectl apply -f k8s/ingress.yml
 
       - name: Show Minikube IP and Port
         run: minikube service flask-app --url
