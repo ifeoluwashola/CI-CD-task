@@ -79,4 +79,4 @@ jobs:
         run: kubectl apply -f k8s/ingress.yml
 
       - name: Show Minikube IP and Port
-        run: minikube service flask-app --url
+        run: minikube service weather-app-svc --url
