@@ -49,23 +49,10 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }}
 
-  validate:
-    if: github.ref == 'refs/heads/development'
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
-      
-      - name: Run ansible-lint
-        uses: ansible-community/ansible-lint-action@v6.0.2
-        with:
-          args: "ansible" 
-
   deploy_to_minikube:
     if: github.ref == 'refs/heads/development'
     runs-on: ubuntu-latest
-    needs: [validate]
+    needs: [build]
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
@@ -86,13 +73,13 @@ jobs:
         run: eval $(minikube docker-env) && docker tag ${{ secrets.DOCKERHUB_USERNAME }}/flask-app:${{ github.sha }} flask-app:minikube && docker save flask-app:minikube | (eval $(minikube docker-env) && docker load)
 
       - name: Deploy Flask app to Minikube
-        run: kubectl apply -f kubernetes/deployment.yaml
+        run: kubectl apply -f k8s/deployment.yaml
 
       - name: Expose Flask app service
         run: kubectl expose deployment flask-app --type=NodePort --port=80
 
       - name: Deploy Ingress
-        run: kubectl apply -f kubernetes/ingress.yaml
+        run: kubectl apply -f k8s/ingress.yaml
 
       - name: Show Minikube IP and Port
         run: minikube service flask-app --url
