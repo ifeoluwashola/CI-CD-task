@@ -73,7 +73,7 @@ jobs:
         run: kubectl apply -f k8s/deployment.yml
 
       - name: Expose Flask app service
-        run: kubectl expose deployment flask-app --type=NodePort --port=80
+        run: kubectl apply -f service.yml
 
       - name: Deploy Ingress
         run: kubectl apply -f k8s/ingress.yml
